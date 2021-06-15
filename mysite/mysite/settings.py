@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 from . util import get_env_variable
 import os
+import django_heroku
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,7 +27,7 @@ SECRET_KEY = '%kk#v@y!3#v)o4b@zdc%&skj%#@1c8=)wn=_mx#*d#ojk^7gus'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['damp-mountain-65850.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
@@ -74,17 +76,23 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': get_env_variable('DATABASE_NAME'),
-        'USER': get_env_variable('DATABASE_USER'),
-        'PASSWORD': get_env_variable('DATABASE_PASSWORD'),
-        'HOST': get_env_variable('DATABASE_HOST'),
-        'PORT': get_env_variable('DATABASE_PORT'),
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': get_env_variable('DATABASE_NAME'),
+#         'USER': get_env_variable('DATABASE_USER'),
+#         'PASSWORD': get_env_variable('DATABASE_PASSWORD'),
+#         'HOST': get_env_variable('DATABASE_HOST'),
+#         'PORT': get_env_variable('DATABASE_PORT'),
+#     }
+# }
 
+
+#Production
+
+DATABASE = {
+    'default': dj_database_url.config()
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -123,3 +131,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+<<<<<<< Updated upstream
+=======
+
+#Production
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+django_heroku.settings(locals())
+>>>>>>> Stashed changes
